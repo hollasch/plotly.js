@@ -1,4 +1,6 @@
 import { glsl } from 'esbuild-plugin-glsl';
+import { glslify } from 'esbuild-plugin-glslify';
+import { glslifyInline } from 'esbuild-plugin-glslify-inline'
 import { environmentPlugin } from 'esbuild-plugin-environment';
 
 export default {
@@ -7,11 +9,18 @@ export default {
     format: 'iife',
     globalName: 'Plotly',
     bundle: true,
-    minify: true,
-    sourcemap: true,
+    minify: false,
+    sourcemap: false,
     plugins: [
+        glslify({
+            extensions: [ 'glsl' ],
+            compress: false
+        }),
+        glslifyInline({
+            compress: false
+        }),
         glsl({
-            minify: true
+            minify: false
         }),
         environmentPlugin({
             NODE_DEBUG: false
