@@ -1,6 +1,7 @@
 var glsl = require('esbuild-plugin-glsl').glsl;
 var environmentPlugin = require('esbuild-plugin-environment').environmentPlugin;
 var umdWrapper = require('esbuild-plugin-umd-wrapper').umdWrapper;
+var es5Plugin = require('esbuild-plugin-es5').es5Plugin;
 
 module.exports = {
     entryPoints: ['./lib/index.js'],
@@ -16,6 +17,7 @@ module.exports = {
         environmentPlugin({
             NODE_DEBUG: false,
         }),
+        es5Plugin(),
         umdWrapper({
             libraryName: 'Plotly'
         })
@@ -26,6 +28,6 @@ module.exports = {
     define: {
         global: 'window',
     },
-    target: 'es2016',
+    target: 'es5',
     logLevel: 'info',
 };
